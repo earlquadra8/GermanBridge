@@ -4,29 +4,27 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerBehaviour : MonoBehaviour {
+public class PlayerBehaviour : MonoBehaviour
+{
 
     public class PlayerRound
     {
         public int playerId;
         public int bid;
         public int win;
-        public int deltaScore;
+        public int deltaScore = 0;
+        public int totalScore = 0;
 
         public PlayerRound(int playerId, int bid)
         {
             this.playerId = playerId;
             this.bid = bid;
-            this.win = 0;
-            this.deltaScore = 0;
         }
     }
 
     public InputField inputFieldName;
     public InputField inputFieldBidTrick;
     public InputField inputFieldWinTrick;
-
-    public GameObject setupConfirmBtn;
 
     private int playerId;
     private string playerName;
@@ -57,34 +55,24 @@ public class PlayerBehaviour : MonoBehaviour {
         return playerRounds.Peek();
     }
 
-    public void SetPlayerWinTrick()
-    {
-        GetCurrPlayerRound().win = Int32.Parse(inputFieldWinTrick.text);
-    }
-    #endregion
-
-    #region OnBtnClick
-    public void OnPlayerSetUpBtnClick ()
+    public void SetUpPlayer (int playerId)
     {
         playerName = inputFieldName.text;
         if (!string.IsNullOrEmpty(playerName))
         {
-            setupConfirmBtn.SetActive(false);
-            // Setup playerId
+            this.playerId = playerId;
         }
     }
 
-    public void OnPlayerBidBtnClick ()
+    public void SetPlayerBidTrick()
     {
         PlayerRound playerRound = new PlayerRound(this.playerId, Int32.Parse(inputFieldBidTrick.text));
         playerRounds.Push(playerRound);
-        // Show score board
     }
 
-    //public void OnPlayerWinBtnClick ()
-    //{
-    //    playerRounds.Peek().win = Int32.Parse(inputFieldWinTrick.text);
-    //    // Update score board
-    //}
+    public void SetPlayerWinTrick()
+    {
+        GetCurrPlayerRound().win = Int32.Parse(inputFieldWinTrick.text);
+    }
     #endregion
 }

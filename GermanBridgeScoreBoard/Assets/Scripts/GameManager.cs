@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public static GameManager Instance;
 
@@ -42,7 +43,12 @@ public class GameManager : MonoBehaviour {
 
     public void OnRoundStartBtnClick()
     {
-        
+        foreach (var player in players)
+        {
+            player.SetPlayerBidTrick();
+        }
+
+        // Set socre board
     }
 
     public void OnRoundFinishBtnClick()
@@ -51,6 +57,8 @@ public class GameManager : MonoBehaviour {
         {
             player.SetPlayerWinTrick();
         }
+
+        // Update score board
 
         roundNum++;
     }
